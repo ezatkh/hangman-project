@@ -31,6 +31,15 @@
 .trueLetter{
   text-decoration: line-through;
 }
+.greenScore{
+  background-color: green;
+}
+.yellowScore{
+  background-color: yellow;
+}
+.redScore{
+  background-color: red;
+}
 
 @keyframes App-logo-spin {
   from {

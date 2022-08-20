@@ -20,6 +20,29 @@ class App extends Component {
     }
     return letterStatus;
   }
+  selectLetter = (letter) => {
+    let NewObjectLetters = JSON.stringify(this.state.statusLetter);
+    NewObjectLetters = JSON.parse(NewObjectLetters);
+    NewObjectLetters[letter] = true;
+
+    let newScore;
+    let flagExistLetter = this.state.solution.word
+      .split("")
+      .some((letterSelected) => {
+        return letterSelected == letter;
+      });
+    if (flagExistLetter) {
+      newScore = this.state.score + 10;
+    } else newScore = this.state.score - 20;
+
+    this.setState({
+      statusLetter: NewObjectLetters,
+      score: newScore,
+    });
+
+    this.changeLevelScore();
+  };
+
   render() {
     return (
       <div className="App">
@@ -28,7 +51,10 @@ class App extends Component {
           solution={this.state.solution}
           letterStatus={this.state.statusLetter}
         />
-        <Letters letterStatus={this.state.statusLetter} />
+        <Letters
+          selectLetter={this.selectLetter}
+          letterStatus={this.state.statusLetter}
+        />
       </div>
     );
   }

@@ -9,6 +9,7 @@ class Letters extends Component {
           <Letter
             className={this.props.letterStatus[oneLetter] + "Letter"}
             oneLetter={oneLetter}
+            selectLetter={this.props.selectLetter}
           />
         ))}
       </div>
