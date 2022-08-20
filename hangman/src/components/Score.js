@@ -3,7 +3,7 @@ class Score extends Component {
   render() {
     return (
       <div>
-        <p>100</p>
+        <p>{this.props.score}</p>
       </div>
     );
   }

@@ -1,17 +1,23 @@
 import React, { Component } from "react";
+import Letter from "./Letter";
 
 class Solution extends Component {
-  dashes = [];
-  getDashes() {
-    for (let i = 0; i < 2; i++) this.dashes.push(<span>- </span>);
-    return this.dashes;
-  }
-
   render() {
     return (
       <div>
-        <div> {this.getDashes()}</div>
-        <em>your ideal mood when coding</em>
+        <h4>
+          word:
+          {this.props.solution.word
+            .split("")
+            .map((keyLetter) =>
+              this.props.letterStatus[keyLetter] ? (
+                <Letter oneLetter={keyLetter} />
+              ) : (
+                "_ "
+              )
+            )}
+        </h4>
+        <h4>hint:{this.props.solution.hint}</h4>
       </div>
     );
   }
