@@ -4,16 +4,15 @@ import Letter from "./Letter";
 class Solution extends Component {
   render() {
     return (
-      <div>
+      <div className="solution">
         <h4>
-          word:
           {this.props.solution.word
             .split("")
             .map((keyLetter) =>
               this.props.letterStatus[keyLetter] ? (
                 <Letter oneLetter={keyLetter} />
               ) : (
-                "_ "
+                " __ "
               )
             )}
         </h4>

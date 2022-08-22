@@ -3,8 +3,7 @@ import Letter from "./Letter";
 class Letters extends Component {
   render() {
     return (
-      <div>
-        <div>Available letters</div>
+      <div className="letters">
         {Object.keys(this.props.letterStatus).map((oneLetter) => (
           <Letter
             className={this.props.letterStatus[oneLetter] + "Letter"}

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Score from "./components/Score";
 import Solution from "./components/Solution";
 import Letters from "./components/Letters";
+import EndGame from "./components/endGame";
 
 class App extends Component {
   constructor() {
@@ -21,9 +22,13 @@ class App extends Component {
     return letterStatus;
   }
   selectLetter = (letter) => {
+    let selectedBefore = false;
     let NewObjectLetters = JSON.stringify(this.state.statusLetter);
     NewObjectLetters = JSON.parse(NewObjectLetters);
-    NewObjectLetters[letter] = true;
+
+    if (NewObjectLetters[letter] == true) {
+      selectedBefore = true;
+    } else NewObjectLetters[letter] = true;
 
     let newScore;
     let flagExistLetter = this.state.solution.word
@@ -31,30 +36,39 @@ class App extends Component {
       .some((letterSelected) => {
         return letterSelected == letter;
       });
-    if (flagExistLetter) {
-      newScore = this.state.score + 10;
-    } else newScore = this.state.score - 20;
-
+    if (flagExistLetter && !selectedBefore) {
+      if (this.state.score <= 90) newScore = this.state.score + 10;
+      else newScore = this.state.score;
+    } else if (this.state.score >= 20 && !selectedBefore)
+      newScore = this.state.score - 20;
+    else newScore = this.state.score;
     this.setState({
       statusLetter: NewObjectLetters,
       score: newScore,
     });
-
-    this.changeLevelScore();
   };
 
   render() {
     return (
-      <div className="App">
-        <Score score={this.state.score} />
-        <Solution
-          solution={this.state.solution}
-          letterStatus={this.state.statusLetter}
-        />
-        <Letters
-          selectLetter={this.selectLetter}
-          letterStatus={this.state.statusLetter}
-        />
+      <div className=" imageBG">
+        <div className="App">
+          <div className="game">
+            <Score score={this.state.score} />
+            <Solution
+              solution={this.state.solution}
+              letterStatus={this.state.statusLetter}
+            />
+            <Letters
+              selectLetter={this.selectLetter}
+              letterStatus={this.state.statusLetter}
+            />
+          </div>
+          <EndGame
+            score={this.state.score}
+            word={this.state.solution.word}
+            letterStatus={this.state.statusLetter}
+          />
+        </div>
       </div>
     );
   }
